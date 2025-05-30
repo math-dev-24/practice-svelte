@@ -57,8 +57,21 @@
 					</form>
 				</li>
 			{:else}
-				<li><a href="/login">Connexion</a></li>
-				<li><a href="/login">Inscription</a></li>
+				<li>
+					<a
+						href="/login"
+						class={isCurrentPath('/login')}
+					>
+						Connexion</a>
+				</li>
+				<li>
+					<a
+						href="/login"
+						class={isCurrentPath('/login')}
+					>
+						Inscription
+					</a>
+				</li>
 			{/if}
 		</ul>
 	</nav>
