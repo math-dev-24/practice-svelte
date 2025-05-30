@@ -1,12 +1,16 @@
 <script lang="ts">
 	import type { Todo } from '$lib/server/db/schema';
 	import { enhance } from '$app/forms';
+	import { fade } from 'svelte/transition';
 
 	let { todo }: { todo: Todo } = $props();
 </script>
 
-<div class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-	<div class="flex items-start justify-between gap-4">
+<div
+	transition:fade={{duration: 150}}
+	class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200"
+>
+	<div class="flex items-start justify-between gap-2">
 		<div class="flex-1 min-w-0">
 			<h3 class="text-lg font-medium text-gray-900 mb-2 leading-tight">
 				{todo.title}
@@ -20,13 +24,7 @@
 
 		<div class="flex-shrink-0">
 			<label class="inline-flex items-center cursor-pointer">
-				<input
-					type="checkbox"
-					bind:checked={todo.completed}
-					disabled
-					class="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-				/>
-				<span class="sr-only">Mark as completed</span>
+				<span>{todo.complete ? 'Terminé' : 'Ouvert'}</span>
 			</label>
 		</div>
 	</div>

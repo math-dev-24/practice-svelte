@@ -65,8 +65,8 @@ export const actions: Actions = {
 		}
 
 		const userId = nanoid();
+
 		const passwordHash = await hash(password, {
-			// recommended minimum parameters
 			memoryCost: 19456,
 			timeCost: 2,
 			outputLen: 32,
@@ -82,7 +82,7 @@ export const actions: Actions = {
 		} catch (e) {
 			return fail(500, { message: 'An error has occurred' });
 		}
-		return redirect(302, '/demo/lucia');
+		return redirect(302, '/todos');
 	}
 };
 

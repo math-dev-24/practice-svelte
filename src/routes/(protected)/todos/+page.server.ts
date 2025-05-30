@@ -1,10 +1,12 @@
 // +page.server.ts
-import type { Actions, PageServerLoad } from './$types';
+
 import { db } from '$lib/server/db';
 import * as table from '$lib/server/db/schema';
-import { fail, redirect } from '@sveltejs/kit';
+import { type Actions, fail, redirect } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
 import { eq, sql } from 'drizzle-orm';
+import type { PageServerLoad } from './$types';
+import { todo } from '$lib/server/db/schema';
 
 export const actions: Actions = {
 	createTodo: async (event) => {
@@ -12,6 +14,10 @@ export const actions: Actions = {
 
 		const title = formData.get('title') as string;
 		const description = formData.get('description') as string;
+
+		if (!event.locals.user) {
+			return fail(401, { message: 'Unauthorized' });
+		}
 
 		if (!title || title.trim() === '') {
 			return fail(400, { message: 'Title is required' });
@@ -27,7 +33,8 @@ export const actions: Actions = {
 				description: description.trim(),
 				completed: false,
 				createdAt: new Date(),
-				updatedAt: new Date()
+				updatedAt: new Date(),
+				userId: event.locals.user.id
 			});
 		} catch (e) {
 			console.error('Database error:', e);
@@ -67,9 +74,14 @@ export const actions: Actions = {
 	}
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async (event) => {
+
+	if (!event.locals.user) {
+		return redirect(302, '/login');
+	}
+
 	try {
-		const todos = await db.select().from(table.todo).all();
+		const todos = await db.select().from(table.todo).where(eq(todo.userId, event.locals.user.id))
 		return {
 			todos
 		};

@@ -21,7 +21,10 @@ export const todo = sqliteTable('todo', {
 	description: text('description').notNull(),
 	completed: integer('completed', { mode: 'boolean' }).notNull().default(false),
 	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
+	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
+	userId: text('user_id')
+		.notNull()
+		.references(() => user.id)
 });
 
 export type Session = typeof session.$inferSelect;
