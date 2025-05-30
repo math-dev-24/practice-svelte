@@ -3,10 +3,14 @@
 @plugin '@tailwindcss/typography';
 
 
-a {
+.link {
     &:hover {
         @apply border-b border-b-slate-800 transition-colors duration-300 py-2;
     }
+}
+
+.currentPage{
+    @apply text-emerald-600;
 }
 
 .callout-error {
@@ -33,4 +37,8 @@ a {
 
 .btn-success {
     @apply bg-green-500 text-white hover:bg-green-600;
+}
+
+.btn-orange {
+    @apply bg-orange-500 text-white hover:bg-orange-600;
 }

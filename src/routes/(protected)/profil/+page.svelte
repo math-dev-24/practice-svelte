@@ -3,13 +3,13 @@
 	import { enhance } from '$app/forms';
 	import MInput from '$lib/components/base/MInput.svelte';
 
-	let { data, form }: { data: PageServerData, form: never } = $props();
+	let { data, form }: { data: PageServerData, form: any } = $props();
 
 	let updatePassword = $state(false);
 	
 </script>
 
-<h1>Bonjour {data.user.username} :</h1>
+<h1 class="text-center text-2xl mb-6">Bonjour <span class="text-emerald-600">{data.user.username}</span>,</h1>
 
 <form
 	class="max-w-md mx-auto border rounded bg-white drop-shadow border-slate-300 py-6 px-4"
@@ -63,10 +63,9 @@
 	<button class="btn btn-success">
 		Modifier
 	</button>
+	{#if form?.message}
+		<div class={`callout-${form.type}`}>
+			{form.message}
+		</div>
+	{/if}
 </form>
-
-{#if form?.message}
-	<div class={`callout-${form.type}`}>
-		{form.message}
-	</div>
-{/if}

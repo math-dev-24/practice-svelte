@@ -22,18 +22,19 @@ export const actions: Actions = {
 
 		if (!validateUsername(username)) {
 			return fail(400, {
-				message: 'Invalid username (min 3, max 31 characters, alphanumeric only)'
+				message: 'Invalid username (min 3, max 31 characters, alphanumeric only)',
+				type: 'error'
 			});
 		}
 		if (!validatePassword(password)) {
-			return fail(400, { message: 'Invalid password (min 6, max 255 characters)' });
+			return fail(400, { message: 'Invalid password (min 6, max 255 characters)', type: 'error' });
 		}
 
 		const results = await db.select().from(table.user).where(eq(table.user.username, username));
 
 		const existingUser = results.at(0);
 		if (!existingUser) {
-			return fail(400, { message: 'Incorrect username or password' });
+			return fail(400, { message: 'Incorrect username or password', type: 'error' });
 		}
 
 		const validPassword = await verify(existingUser.passwordHash, password, {
@@ -43,7 +44,7 @@ export const actions: Actions = {
 			parallelism: 1
 		});
 		if (!validPassword) {
-			return fail(400, { message: 'Incorrect username or password' });
+			return fail(400, { message: 'Incorrect username or password', type: 'error' });
 		}
 
 		const sessionToken = auth.generateSessionToken();
@@ -58,10 +59,10 @@ export const actions: Actions = {
 		const password = formData.get('password');
 
 		if (!validateUsername(username)) {
-			return fail(400, { message: 'Invalid username' });
+			return fail(400, { message: 'Invalid username', type: 'error' });
 		}
 		if (!validatePassword(password)) {
-			return fail(400, { message: 'Invalid password' });
+			return fail(400, { message: 'Invalid password', type: 'error' });
 		}
 
 		const userId = nanoid();
@@ -80,7 +81,7 @@ export const actions: Actions = {
 			const session = await auth.createSession(sessionToken, userId);
 			auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
 		} catch (e) {
-			return fail(500, { message: 'An error has occurred' });
+			return fail(500, { message: 'An error has occurred', type: 'error' });
 		}
 		return redirect(302, '/todos');
 	}

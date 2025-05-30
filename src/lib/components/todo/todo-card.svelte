@@ -21,12 +21,6 @@
 				</p>
 			{/if}
 		</div>
-
-		<div class="flex-shrink-0">
-			<label class="inline-flex items-center cursor-pointer">
-				<span>{todo.complete ? 'Terminé' : 'Ouvert'}</span>
-			</label>
-		</div>
 	</div>
 
 	<div class="flex gap-2">
@@ -69,11 +63,15 @@
 		</form>
 	</div>
 
-	{#if todo.completed}
 		<div class="mt-3 pt-3 border-t border-gray-100">
-      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-        Terminé
-      </span>
+			{#if todo.completed}
+				<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+					Terminé
+				</span>
+				{:else}
+				<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+					Ouvert
+				</span>
+				{/if}
 		</div>
-	{/if}
 </div>

@@ -16,16 +16,12 @@ export const load: PageServerLoad = async (event) => {
         });
 
         if (!userData) {
-            return fail(400, {
-                type: "error",
-                message: "Utilisateur non trouvé",
-                error: true
-            })
+            throw new Error("Utilisateur non trouvé");
         }
+
         return {
             user: userData
         };
-
     } catch (error) {
         console.error("Erreur lors du chargement des données utilisateur:", error);
         throw redirect(302, '/login');
