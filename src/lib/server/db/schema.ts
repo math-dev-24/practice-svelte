@@ -1,27 +1,27 @@
-import { sqliteTable, integer, text } from 'drizzle-orm/sqlite-core';
+import { pgTable, serial, text, timestamp, boolean } from 'drizzle-orm/pg-core';
 
-export const user = sqliteTable('user', {
+export const user = pgTable('user', {
 	id: text('id').primaryKey(),
-	age: integer('age'),
+	age: serial('age'),
 	username: text('username').notNull().unique(),
 	passwordHash: text('password_hash').notNull()
 });
 
-export const session = sqliteTable('session', {
+export const session = pgTable('session', {
 	id: text('id').primaryKey(),
 	userId: text('user_id')
 		.notNull()
 		.references(() => user.id),
-	expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull()
+	expiresAt: timestamp('expires_at').notNull()
 });
 
-export const todo = sqliteTable('todo', {
+export const todo = pgTable('todo', {
 	id: text('id').primaryKey(),
 	title: text('title').notNull(),
 	description: text('description').notNull(),
-	completed: integer('completed', { mode: 'boolean' }).notNull().default(false),
-	createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-	updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
+	completed: boolean('completed').notNull().default(false),
+	createdAt: timestamp('created_at').notNull(),
+	updatedAt: timestamp('updated_at').notNull(),
 	userId: text('user_id')
 		.notNull()
 		.references(() => user.id)
