@@ -3,7 +3,11 @@
 	import MInput from '$lib/components/base/MInput.svelte';
 	import type { ActionData } from './$types';
 
-	let { form , toggleForm }: { form: ActionData, toggleForm: () => void } = $props();
+	type Props = {
+		form: ActionData;
+	}
+
+	let { form }: Props = $props();
 
 </script>
 
@@ -13,9 +17,6 @@
 	method="post"
 	use:enhance
 >
-	<button class="btn btn-primary" onclick={toggleForm}>
-		Annuler
-	</button>
 
 	<MInput
 		type="text"

@@ -29,6 +29,14 @@
 					Home
 				</a>
 			</li>
+			<li>
+				<a
+					href="/pokedex"
+					class={isCurrentPath('/pokedex')}
+				>
+					Pokédex
+				</a>
+			</li>
 
 			{#if data.user}
 				<li>

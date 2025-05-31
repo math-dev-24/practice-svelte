@@ -15,13 +15,13 @@
 </script>
 
 <h1 class="text-3xl font-bold"> {data.todos.length} | Mes tâches :</h1>
-<button class="btn btn-primary" on:click={toggleForm}>
+<button class="btn btn-primary" onclick={toggleForm}>
 	{showForm ? 'Masquer' : 'Ajouter'}
 </button>
 {#if showForm}
 	<div
 		class="z-40 fixed top-0 left-0 bg-black opacity-50 h-screen w-screen"
-	on:click={toggleForm}
+	onclick={toggleForm}
 	></div>
 	<TodoAdd {form} toggleForm={toggleForm} />
 {/if}
