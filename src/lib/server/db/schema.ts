@@ -1,4 +1,4 @@
-import { pgTable, serial, text, timestamp, boolean } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, timestamp, boolean, json, integer } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
 	id: text('id').primaryKey(),
@@ -15,11 +15,10 @@ export const session = pgTable('session', {
 	expiresAt: timestamp('expires_at').notNull()
 });
 
-export const todo = pgTable('todo', {
+export const table = pgTable('table', {
 	id: text('id').primaryKey(),
-	title: text('title').notNull(),
-	description: text('description').notNull(),
-	completed: boolean('completed').notNull().default(false),
+	name: text('name').notNull(),
+	description: text('description'),
 	createdAt: timestamp('created_at').notNull(),
 	updatedAt: timestamp('updated_at').notNull(),
 	userId: text('user_id')
@@ -27,6 +26,32 @@ export const todo = pgTable('todo', {
 		.references(() => user.id)
 });
 
-export type Session = typeof session.$inferSelect;
+export const column = pgTable('column', {
+	id: text('id').primaryKey(),
+	tableId: text('table_id')
+		.notNull()
+		.references(() => table.id, { onDelete: 'cascade' }),
+	name: text('name').notNull(),
+	type: text('type').notNull(),
+	order: integer('order').notNull().default(0),
+	isRequired: boolean('is_required').default(false),
+	config: json('config'),
+	createdAt: timestamp('created_at').notNull(),
+	updatedAt: timestamp('updated_at').notNull()
+});
+
+export const record = pgTable('record', {
+	id: text('id').primaryKey(),
+	tableId: text('table_id')
+		.notNull()
+		.references(() => table.id, { onDelete: 'cascade' }),
+	createdAt: timestamp('created_at').notNull(),
+	updatedAt: timestamp('updated_at').notNull(),
+	values: json('values')
+});
+
 export type User = typeof user.$inferSelect;
-export type Todo = typeof todo.$inferSelect;
+export type Session = typeof session.$inferSelect;
+export type Table = typeof table.$inferSelect;
+export type Column = typeof column.$inferSelect;
+export type Record = typeof record.$inferSelect;

@@ -19,7 +19,7 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			<!-- Todos Card -->
 			<a
-				href="/todos"
+				href="/tables"
 				class="group block p-6 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all duration-200"
 			>
 				<div class="flex items-start gap-4">
@@ -31,18 +31,11 @@
 					</div>
 					<div class="flex-1">
 						<h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-							Mes tâches
+							Mes tables
 						</h3>
 						<p class="text-gray-600 text-sm leading-relaxed">
-							Gérez vos tâches quotidiennes et suivez votre progression
+							Gestion de mes tables de données
 						</p>
-						{#if data.todoCount > 0}
-							<div class="mt-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                  {data.todoCount} {data.todoCount === 1 ? 'tâche' : 'tâches'}
-                </span>
-							</div>
-						{/if}
 					</div>
 					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all">
 						<path d="M9 18l6-6-6-6"/>
@@ -106,7 +99,7 @@
 				</a>
 
 				<a
-					href="/register"
+					href="/login"
 					class="inline-flex items-center gap-2 px-6 py-3 text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors font-medium"
 				>
 					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

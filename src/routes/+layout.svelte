@@ -46,19 +46,14 @@
 
 				{#if data.user}
 					<a
-						href="/todos"
+						href="/tables"
 						class={`px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 ${
-              isCurrentPath('/todos')
+              isCurrentPath('/tables')
                 ? 'bg-gray-100 text-gray-900'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
             }`}
 					>
-						Tâches
-						{#if data.todoCount > 0}
-              <span class="inline-flex items-center justify-center w-5 h-5 text-xs font-medium text-white bg-blue-600 rounded-full">
-                {data.todoCount}
-              </span>
-						{/if}
+						Tables
 					</a>
 
 					<a
