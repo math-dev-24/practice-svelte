@@ -8,6 +8,7 @@
 		autofocus?: boolean;
 		placeholder?: string;
 		value?: string;
+		tabindex?: number;
 	}
 
 	let {
@@ -18,7 +19,8 @@
 		required = false,
 		autofocus = false,
 		placeholder,
-		value = ""
+		value = "",
+		tabindex = 0
 	}: Props = $props();
 
 </script>
@@ -33,5 +35,6 @@
 		{autofocus}
 		{placeholder}
 		bind:value
+		tabindex={tabindex}
 	/>
 </div>

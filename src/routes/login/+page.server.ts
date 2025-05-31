@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid';
 
 export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
-		return redirect(302, '/demo/lucia');
+		return redirect(302, '/todos');
 	}
 	return {};
 };
@@ -51,7 +51,7 @@ export const actions: Actions = {
 		const session = await auth.createSession(sessionToken, existingUser.id);
 		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
 
-		return redirect(302, '/demo/lucia');
+		return redirect(302, '/todos');
 	},
 	register: async (event) => {
 		const formData = await event.request.formData();

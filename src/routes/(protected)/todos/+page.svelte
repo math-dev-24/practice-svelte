@@ -19,7 +19,11 @@
 	{showForm ? 'Masquer' : 'Ajouter'}
 </button>
 {#if showForm}
-	<TodoAdd {form} />
+	<div
+		class="z-40 fixed top-0 left-0 bg-black opacity-50 h-screen w-screen"
+	on:click={toggleForm}
+	></div>
+	<TodoAdd {form} toggleForm={toggleForm} />
 {/if}
 <div class="grid grid-cols-3 gap-2 mx-auto my-8">
 	{#each data.todos as todo (todo.id)}
