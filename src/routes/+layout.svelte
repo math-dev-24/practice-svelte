@@ -5,87 +5,121 @@
 
 	let { children, data }: { children: any, data: LayoutData } = $props();
 
-
-	function isCurrentPath(path: string): string {
-		if (page.url.pathname === path) {
-			return "currentPage"
-		}
-		return "link";
+	function isCurrentPath(path: string): boolean {
+		return page.url.pathname === path;
 	}
-
 </script>
 
+<header class="border-b border-gray-100 bg-white/80 backdrop-blur-sm sticky top-0 z-40">
+	<div class="container mx-auto px-4">
+		<div class="flex items-center justify-between h-16">
+			<!-- Logo/Brand -->
+			<div class="flex items-center">
+				<a href="/" class="text-xl font-semibold text-gray-900 hover:text-gray-700 transition-colors">
+					Svelte Practice
+				</a>
+			</div>
 
-
-<header class="flex container mx-auto mb-4 border-b pb-2 pt-4">
-	<h1 class="text-xl flex-1">Svelte practice</h1>
-	<nav>
-		<ul class="flex gap-4 items-center">
-			<li>
+			<!-- Navigation -->
+			<nav class="hidden md:flex items-center space-x-1">
 				<a
 					href="/"
-					class={isCurrentPath('/')}
+					class={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+            isCurrentPath('/')
+              ? 'bg-gray-100 text-gray-900'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+          }`}
 				>
-					Home
+					Accueil
 				</a>
-			</li>
-			<li>
+
 				<a
 					href="/pokedex"
-					class={isCurrentPath('/pokedex')}
+					class={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+            isCurrentPath('/pokedex')
+              ? 'bg-gray-100 text-gray-900'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+          }`}
 				>
 					Pokédex
 				</a>
-			</li>
 
-			{#if data.user}
-				<li>
+				{#if data.user}
 					<a
 						href="/todos"
-						class={isCurrentPath('/todos')}
+						class={`px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 ${
+              isCurrentPath('/todos')
+                ? 'bg-gray-100 text-gray-900'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+            }`}
 					>
-						Todo | {data.todoCount}
+						Tâches
+						{#if data.todoCount > 0}
+              <span class="inline-flex items-center justify-center w-5 h-5 text-xs font-medium text-white bg-blue-600 rounded-full">
+                {data.todoCount}
+              </span>
+						{/if}
 					</a>
-				</li>
-				<li>
+
 					<a
 						href="/profil"
-						class={isCurrentPath('/profil')}
+						class={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+              isCurrentPath('/profil')
+                ? 'bg-gray-100 text-gray-900'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+            }`}
 					>
 						Profil
 					</a>
-				</li>
-				<li>
+
+					<!-- Separator -->
+					<div class="w-px h-4 bg-gray-200 mx-2"></div>
+
+					<!-- Logout -->
 					<form method="post" action="/logout">
 						<button
-							class="btn"
+							class="px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+							type="submit"
 						>
 							Déconnexion
 						</button>
 					</form>
-				</li>
-			{:else}
-				<li>
+				{:else}
 					<a
 						href="/login"
-						class={isCurrentPath('/login')}
+						class={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+              isCurrentPath('/login')
+                ? 'bg-gray-100 text-gray-900'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+            }`}
 					>
-						Connexion</a>
-				</li>
-				<li>
+						Connexion
+					</a>
+
 					<a
-						href="/login"
-						class={isCurrentPath('/login')}
+						href="/register"
+						class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
 					>
 						Inscription
 					</a>
-				</li>
-			{/if}
-		</ul>
-	</nav>
+				{/if}
+			</nav>
+
+			<!-- Mobile menu button -->
+			<div class="md:hidden">
+				<button
+					class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+					aria-label="Menu"
+				>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M3 12h18M3 6h18M3 18h18"/>
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
 </header>
 
-<main class="container mx-auto">
+<main class="container mx-auto px-4 py-6">
 	{@render children()}
 </main>
-

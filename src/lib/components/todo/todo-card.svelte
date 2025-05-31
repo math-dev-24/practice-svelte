@@ -7,71 +7,64 @@
 </script>
 
 <div
-	transition:fade={{duration: 150}}
-	class="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200"
+	transition:fade={{duration: 200}}
+	class="group relative bg-white border border-gray-100 rounded-xl p-5 hover:border-gray-200 hover:shadow-sm transition-all duration-300"
 >
-	<div class="flex items-start justify-between gap-2">
-		<div class="flex-1 min-w-0">
-			<h3 class="text-lg font-medium text-gray-900 mb-2 leading-tight">
-				{todo.title}
-			</h3>
-			{#if todo.description}
-				<p class="text-gray-600 text-sm leading-relaxed">
-					{todo.description}
-				</p>
-			{/if}
-		</div>
+	<!-- Status indicator -->
+	<div class="absolute top-5 right-5">
+		<div class={`w-2 h-2 rounded-full ${todo.completed ? 'bg-emerald-400' : 'bg-amber-400'}`}></div>
 	</div>
 
-	<div class="flex gap-2">
-		<form
-			method="post"
-			use:enhance
-			action="?/toggleTodo"
-			class="flex items-center gap-2"
-		>
-			<input
-				type="hidden"
-				name="id"
-				value={todo.id}
-			/>
-			<button
-				class="rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
+	<!-- Content -->
+	<div class="pr-6">
+		<h3 class={`text-lg font-semibold mb-2 transition-colors ${todo.completed ? 'text-gray-500 line-through' : 'text-gray-900'}`}>
+			{todo.title}
+		</h3>
+
+		{#if todo.description}
+			<p class="text-gray-500 text-sm mb-4 leading-relaxed">
+				{todo.description}
+			</p>
+		{/if}
+	</div>
+
+	<!-- Actions -->
+	<div class="flex items-center justify-between pt-4 border-t border-gray-50">
+    <span class={`text-xs font-medium px-2 py-1 rounded-md ${
+      todo.completed
+        ? 'bg-emerald-50 text-emerald-600'
+        : 'bg-amber-50 text-amber-600'
+    }`}>
+      {todo.completed ? 'Terminé' : 'En cours'}
+    </span>
+
+		<div class="flex gap-2">
+			<!-- Toggle button -->
+			<form method="post" use:enhance action="?/toggleTodo">
+				<input type="hidden" name="id" value={todo.id} />
+				<button
+					class={`p-2 rounded-lg text-xs font-medium transition-colors ${
+            todo.completed
+              ? 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              : 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200'
+          }`}
 				>
-				{#if todo.completed}
-					Démarrer
-				{:else}
-					Terminer
-				{/if}
-			</button>
-		</form>
-		<form
-		method="post"
-		use:enhance
-		action="?/deleteTodo"
-		class="flex items-center gap-2"
-	>
-		<input
-			type="hidden"
-			name="id"
-			value={todo.id}
-		/>
-		<button
-			class="rounded-md bg-red-600 px-4 py-2 text-white transition hover:bg-red-700"
-			>
-			<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 14 14"><!-- Icon from Streamline by Streamline - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M1 3.5h12m-10.5 0h9v9a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-9h0Zm2 0V3a2.5 2.5 0 0 1 5 0v.5m-4 2V11m3-5.5V11"/></svg>		</button>
-		</form>
-	</div>
+					{todo.completed ? 'Rouvrir' : 'Terminer'}
+				</button>
+			</form>
 
-		<div class="mt-3 pt-3 border-t border-gray-100">
-			{#if todo.completed}
-				<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-					Terminé
-				</span>
-				{:else}
-				<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-					Ouvert
-				</span>
-				{/if}
+			<!-- Delete button -->
+			<form method="post" use:enhance action="?/deleteTodo">
+				<input type="hidden" name="id" value={todo.id} />
+				<button
+					class="p-2 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+					aria-label="Supprimer la tâche"
+				>
+					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14ZM10 11v6M14 11v6"/>
+					</svg>
+				</button>
+			</form>
 		</div>
+	</div>
 </div>
