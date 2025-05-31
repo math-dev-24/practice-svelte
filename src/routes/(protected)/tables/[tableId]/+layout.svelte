@@ -46,8 +46,8 @@
 	</div>
 
 	<!-- Navigation tabs -->
-	<div class="border-b border-gray-200 mb-8">
-		<nav class="-mb-px flex space-x-8">
+	<div class="border-b border-gray-200">
+		<nav class="flex space-x-8">
 			<a
 				href="/tables/{data.table.id}"
 				class={isCurrentPath('/tables/' + data.table.id)}

@@ -29,14 +29,12 @@ export class TableService {
 			updatedAt: now
 		});
 
-		// Ajouter les colonnes par défaut
+		// Ajouter une colonne par défaut si non défini
 		const columnsToCreate = defaultColumns || [
 			{ name: 'Nom', type: 'text' as ColumnType },
 		];
 
-		for (let i = 0; i < columnsToCreate.length; i++) {
-			await this.addColumn(tableId, columnsToCreate[i].name, columnsToCreate[i].type, i, columnsToCreate[i].config);
-		}
+		await Promise.all(columnsToCreate.map((column, i) => this.addColumn(tableId, column.name, column.type, i, column.config)));
 
 		return tableId;
 	}

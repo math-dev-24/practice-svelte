@@ -53,9 +53,11 @@ export class ValidationService {
 
 			case 'rating':
 				const rating = parseInt(value);
-				const maxRating = config.maxRating || 5;
-				if (rating < 1 || rating > maxRating) {
-					throw new Error(`Note doit être entre 1 et ${maxRating}`);
+				const maxRating = config.maxRating || 100;
+				const minRating = config.minRating || 0;
+
+				if (rating < minRating || rating > maxRating) {
+					throw new Error(`Note doit être entre ${minRating} et ${maxRating}`);
 				}
 				return rating;
 
@@ -86,6 +88,8 @@ export class ValidationService {
 				return config.options?.[0] || '';
 			case 'multiselect':
 				return [];
+			case 'relation':
+				return '';
 			default:
 				return '';
 		}
@@ -103,7 +107,7 @@ export class ValidationService {
 				break;
 
 			case 'rating':
-				if (config.maxRating && (config.maxRating < 1 || config.maxRating > 10)) {
+				if (config.maxRating && config.minRating && (config.maxRating < 1 || config.maxRating > 10)) {
 					errors.push('La note maximale doit être entre 1 et 10');
 				}
 				break;

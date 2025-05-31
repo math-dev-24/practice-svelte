@@ -125,9 +125,9 @@ export const actions: Actions = {
 							rawValue,
 							column.config || {}
 						);
-					} catch (validationError) {
+					} catch {
 						return fail(400, {
-							error: `Erreur dans "${column.name}": ${validationError.message}`,
+							error: `Erreur pour la "${column.name}".`,
 							fieldError: column.id
 						});
 					}
@@ -144,8 +144,8 @@ export const actions: Actions = {
 				recordId,
 				message: 'Enregistrement créé avec succès'
 			};
-		} catch (error) {
-			console.error('Erreur lors de la création:', error);
+		} catch {
+			console.error('Erreur lors de la création:');
 			return fail(500, { error: 'Erreur lors de la création de l\'enregistrement' });
 		}
 	},
@@ -192,9 +192,9 @@ export const actions: Actions = {
 							rawValue,
 							column.config || {}
 						);
-					} catch (validationError) {
+					} catch {
 						return fail(400, {
-							error: `Erreur dans "${column.name}": ${validationError.message}`,
+							error: `Erreur dans  la colonne "${column.name}"`,
 							fieldError: column.id
 						});
 					}
