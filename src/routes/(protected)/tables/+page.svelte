@@ -7,7 +7,7 @@
 	export let data: PageData;
 	export let form: ActionData;
 
-	let showCreateModal = false;
+	let showCreateModal: boolean = false;
 	let editingTable: any = null;
 	let showDeleteConfirm: string | null = null;
 
@@ -144,7 +144,7 @@
 
 <!-- Modal Modifier Table -->
 {#if editingTable}
-	<div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50">
+	<div class="fixed inset-0 bg-gray-600/75 flex items-center justify-center p-4 z-50">
 		<div class="bg-white rounded-lg max-w-md w-full p-6">
 			<h2 class="text-lg font-semibold mb-4">Modifier la table</h2>
 

@@ -28,7 +28,7 @@
 	}
 </script>
 
-<div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50">
+<div class="fixed inset-0 bg-gray-600/75 flex items-center justify-center p-4 z-50">
 	<div class="bg-white rounded-lg max-w-2xl w-full p-6 max-h-screen overflow-y-auto">
 		<h2 class="text-lg font-semibold mb-4">Modifier la colonne</h2>
 
